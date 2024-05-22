@@ -32,7 +32,7 @@
           <a class="nav-link" href="Batch">Batch</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Participants">Participants</a>
+          <a class="nav-link" href="Participant">Participants</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="About">About</a>

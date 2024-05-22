@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"%>
 
@@ -12,10 +13,10 @@
         <div class="card">
           <div class="card-header">
             <div class="float-start">
-              <h5 class="m-0">Batch</h5>
+              <h5 class="m-0">Participant</h5>
             </div>
             <div class="float-end">
-              <a class="btn btn-sm btn-primary" href="Batch?id=0">
+              <a class="btn btn-sm btn-primary" href="Participant?id=0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -35,9 +36,9 @@
             <div class="row">
               <div class="col-12">
                 <core:if
-                  test="${sessionScope.batches == null || sessionScope.batches.size() == 0}"
+                  test="${sessionScope.participants == null || sessionScope.participants.size() == 0}"
                 >
-                  <div class="alert alert-warning">
+                  <div class="alert alert-warning text-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
   <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
   <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
@@ -45,33 +46,41 @@
                   No record found</div>
                 </core:if>
                 <core:if
-                  test="${sessionScope.batches != null && sessionScope.batches.size() > 0}"
+                  test="${sessionScope.participants != null && sessionScope.participants.size() > 0}"
                 >
                   <div class="table-responsive">
                     <table class="table">
                       <tr>
-                        <th>Id</th>
-                        <th>Type</th>
-                        <th>Time</th>
+				        <th>Id</th>
+				        <th>First Name</th>
+				        <th>Age</th>
+				        <th>Phone</th>
+				        <th>Batch</th>
                         <th class="text-end">Actions</th>
                       </tr>
                       <core:forEach var="batch" items="${sessionScope.batches}">
                         <tr>
                           <td class="align-middle">
-                            <core:out value="${batch.getBid()}"></core:out>
+                            <core:out value="${batch.getPid()}"></core:out>
                           </td>
                           <td class="align-middle">
                             <core:out
-                              value="${batch.getTypeofbatch()}"
+                              value="${batch.getFname()}"
                             ></core:out>
                           </td>
                           <td class="align-middle">
-                            <core:out value="${batch.getTime()}"></core:out>
+                            <core:out value="${batch.getAge()}"></core:out>
+                          </td>
+                          <td class="align-middle">
+                            <core:out value="${batch.getPhonenumber()}"></core:out>
+                          </td>
+                          <td class="align-middle">
+                            <core:out value="${batch.getBid()}"></core:out>
                           </td>
                           <td class="align-middle text-end">
                             <a
                               class="btn btn-sm btn-success"
-                              href="Batch?id=${batch.getBid()}"
+                              href="Participant?id=${batch.getBid()}"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +97,7 @@
                             </a>
                             <a
                               class="btn btn-sm btn-danger"
-                              href="Batch?id=${batch.getBid()}&d=1"
+                              href="Participant?id=${batch.getBid()}&d=1"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -137,3 +146,4 @@
     </div>
   </body>
 </html>
+

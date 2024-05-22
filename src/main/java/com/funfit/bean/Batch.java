@@ -31,7 +31,6 @@ public class Batch {
 
 	public Batch() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Batch(int bid, String typeofbatch, String time) {

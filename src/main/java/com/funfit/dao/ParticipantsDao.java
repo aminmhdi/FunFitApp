@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.funfit.bean.Batch;
 import com.funfit.bean.Participants;
 import com.funfit.resource.DbResource;
 
@@ -14,8 +13,8 @@ public class ParticipantsDao {
 
 	DbResource db;
 	Connection con;
-	public ParticipantsDao()
-	{
+
+	public ParticipantsDao() {
 		db = new DbResource();
 		con = db.getDbConnection();
 	}

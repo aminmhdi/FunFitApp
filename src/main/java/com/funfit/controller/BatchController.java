@@ -1,8 +1,11 @@
 package com.funfit.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.google.gson.Gson;
 
 import com.funfit.bean.Batch;
 import com.funfit.service.BatchService;
@@ -50,7 +54,11 @@ public class BatchController extends HttpServlet {
 		else {
 			hs.setAttribute("batch", new BatchService().get(idInt));
 			request.setAttribute("title", "Detail");
-			response.sendRedirect("batchDetail.jsp");
+			String delete = request.getParameter("d");
+			if (delete != null)
+				response.sendRedirect("batchDelete.jsp");
+			else
+				response.sendRedirect("batchUpdate.jsp");
 			return;
 		}
 	}
@@ -81,17 +89,13 @@ public class BatchController extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		String typeofbatch = request.getParameter("typeofbatch");
-		String time = request.getParameter("time");
-		String id = request.getParameter("id");
+		
 		RequestDispatcher rd = request.getRequestDispatcher("batchUpdate.jsp");
-		Batch bb = new Batch();
-		bb.setTypeofbatch(typeofbatch);
-		bb.setTime(time);
-		bb.setBid(Integer.parseInt(id));
-		String result = new BatchService().update(bb);
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String json = br.lines().collect(Collectors.joining("\n"));;
+		Batch batch = new Gson().fromJson(json, Batch.class);
+		String result = new BatchService().update(batch);
 		if (result == "") {
-			response.sendRedirect("Batch");
 			return;
 		} else {
 			pw.println(result);
@@ -106,13 +110,21 @@ public class BatchController extends HttpServlet {
 		response.setContentType("text/html");
 		String id = request.getParameter("id");
 		RequestDispatcher rd = request.getRequestDispatcher("batchDeletejsp");
-		String result = new BatchService().delete(Integer.parseInt(id));
-		if (result == "") {
-			response.sendRedirect("Batch");
-			return;
-		} else {
-			pw.println(result);
+		if(id == null) {
 			rd.include(request, response);
+			return;
 		}
+		else {
+			
+			String result = new BatchService().delete(Integer.parseInt(id));
+			if (result == "") {
+				return;
+			} else {
+				pw.println(result);
+				rd.include(request, response);
+				return;
+			}
+		}
+		
 	}
 }

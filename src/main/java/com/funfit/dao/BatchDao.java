@@ -1,26 +1,24 @@
 package com.funfit.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.funfit.bean.Batch;
-import com.funfit.bean.Participants;
 import com.funfit.resource.DbResource;
 
 public class BatchDao {
-	
+
 	DbResource db;
 	Connection con;
-	public BatchDao()
-	{
+
+	public BatchDao() {
 		db = new DbResource();
 		con = db.getDbConnection();
 	}
-	
+
 	public List<Batch> list() {
 		List<Batch> listOfBatch = new ArrayList<>();
 		try {
@@ -35,8 +33,7 @@ public class BatchDao {
 			}
 		} catch (Exception e) {
 			System.err.println(e);
-		}
-		finally {
+		} finally {
 			db.closeDbConnection(con);
 		}
 		return listOfBatch;
@@ -56,8 +53,7 @@ public class BatchDao {
 			}
 		} catch (Exception e) {
 			System.err.println(e);
-		}
-		finally {
+		} finally {
 			db.closeDbConnection(con);
 		}
 		return model;
@@ -72,8 +68,7 @@ public class BatchDao {
 		} catch (Exception e) {
 			System.err.println(e);
 			return 0;
-		}
-		finally {
+		} finally {
 			db.closeDbConnection(con);
 		}
 	}
@@ -88,23 +83,20 @@ public class BatchDao {
 		} catch (Exception e) {
 			System.err.println(e);
 			return 0;
-		}
-		finally {
+		} finally {
 			db.closeDbConnection(con);
 		}
 	}
-	
-	public int delete(int id)
-	{
+
+	public int delete(int id) {
 		try {
-			PreparedStatement pstmt = con.prepareStatement("delete batch where bid = ?");
+			PreparedStatement pstmt = con.prepareStatement("delete from batch where bid = ?");
 			pstmt.setInt(1, id);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e);
 			return 0;
-		}
-		finally {
+		} finally {
 			db.closeDbConnection(con);
 		}
 	}

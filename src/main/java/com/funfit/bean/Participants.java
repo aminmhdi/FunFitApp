@@ -55,7 +55,6 @@ public class Participants {
 
 	public Participants() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Participants(int pid, String fname, int age, String phonenumber, int bid) {

@@ -16,14 +16,14 @@ pageEncoding="ISO-8859-1"%>
               <div class="row">
                 <div class="col-md-6 col-lg-3 mb-3">
                   <label class="label">Type</label>
-                  <select class="form-control" name="typeofbatch">
+                  <select class="form-select" name="typeofbatch">
                     <option value="Morning">Morning</option>
                     <option value="Evening">Evening</option>
                   </select>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-3">
                   <label class="label">Time</label>
-                  <select class="form-control" name="time">
+                  <select class="form-select" name="time">
                     <% for (int i = 1, j = 2; i <= 12 && j < 13; i++, j++) { %>
                     <option value="<%=i%>-<%=j%>"><%=i%>-<%=j%></option>
                     <% } %>
