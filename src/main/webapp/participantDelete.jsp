@@ -99,7 +99,7 @@
 		        type: 'DELETE', 
 		        url: 'Participant?'+data,
 		        success: function() {
-	        	    window.location = "Batch";
+	        	    window.location = "Participant";
 		        },
 		        error: function() {
 		        	alert("Delete error.");
