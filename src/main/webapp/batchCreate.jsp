@@ -71,5 +71,24 @@ pageEncoding="ISO-8859-1"%>
         </div>
       </div>
     </div>
+    <%@ include file="scripts.jsp" %>
+    <script type="text/javascript">
+      $("form").submit(function (e) {
+        e.preventDefault();
+        let data = convertFormToJSON(this);
+        $.ajax({
+          type: "Post",
+          url: "Batch",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+          success: function () {
+            window.location = "Batch";
+          },
+          error: function () {
+            alert("Create error.");
+          },
+        });
+      });
+    </script>
   </body>
 </html>

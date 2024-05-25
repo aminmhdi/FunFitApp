@@ -15,13 +15,13 @@ public class DbResource {
 			return null;
 		}
 	}
-	
-	public void closeDbConnection(Connection cn)
-	{
-		if(cn == null) return;
+
+	public void closeDbConnection(Connection cn) {
+		if (cn == null)
+			return;
 		try {
-			 if(!cn.isClosed())
-				 cn.close();
+			if (!cn.isClosed())
+				cn.close();
 		} catch (Exception e) {
 			System.err.println(e);
 		}

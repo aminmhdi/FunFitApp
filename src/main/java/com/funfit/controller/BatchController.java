@@ -68,13 +68,11 @@ public class BatchController extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		String typeofbatch = request.getParameter("typeofbatch");
-		String time = request.getParameter("time");
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String json = br.lines().collect(Collectors.joining("\n"));
+		Batch batch = new Gson().fromJson(json, Batch.class);
 		RequestDispatcher rd = request.getRequestDispatcher("batchCreate.jsp");
-		Batch bb = new Batch();
-		bb.setTypeofbatch(typeofbatch);
-		bb.setTime(time);
-		String result = new BatchService().create(bb);
+		String result = new BatchService().create(batch);
 		if (result == "") {
 			response.sendRedirect("Batch");
 			return;
@@ -89,10 +87,10 @@ public class BatchController extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("batchUpdate.jsp");
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String json = br.lines().collect(Collectors.joining("\n"));;
+		String json = br.lines().collect(Collectors.joining("\n"));
 		Batch batch = new Gson().fromJson(json, Batch.class);
 		String result = new BatchService().update(batch);
 		if (result == "") {
@@ -110,12 +108,10 @@ public class BatchController extends HttpServlet {
 		response.setContentType("text/html");
 		String id = request.getParameter("id");
 		RequestDispatcher rd = request.getRequestDispatcher("batchDeletejsp");
-		if(id == null) {
+		if (id == null) {
 			rd.include(request, response);
 			return;
-		}
-		else {
-			
+		} else {
 			String result = new BatchService().delete(Integer.parseInt(id));
 			if (result == "") {
 				return;
@@ -125,6 +121,5 @@ public class BatchController extends HttpServlet {
 				return;
 			}
 		}
-		
 	}
 }
